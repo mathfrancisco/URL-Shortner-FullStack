@@ -20,8 +20,8 @@ services:
     build: .
     ports:
       - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL:      jdbc:mysql://localhost:3306/urls
+    environment:                                                     
+SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/urls
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: root
     depends_on:
