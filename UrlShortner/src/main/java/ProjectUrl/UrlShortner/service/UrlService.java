@@ -1,5 +1,6 @@
 package ProjectUrl.UrlShortner.service;
 
+
 import ProjectUrl.UrlShortner.modal.Url;
 import ProjectUrl.UrlShortner.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,14 @@ import org.springframework.stereotype.Service;
 import static ProjectUrl.UrlShortner.logic.GenerateShortUrl.getShortUrl;
 import static ProjectUrl.UrlShortner.logic.GenerateShortUrl.isUrlValid;
 
+
 @Service
 public class UrlService {
     @Autowired
     private UrlRepository urlRepository;
 
 
-    public String getOriginlUrl(String id) {
+    public String getOriginalUrl(String id) {
         return urlRepository.findByShortUrl(id);
     }
 

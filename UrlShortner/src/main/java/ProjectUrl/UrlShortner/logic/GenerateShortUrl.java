@@ -9,8 +9,8 @@ public class GenerateShortUrl {
 
     public static String getShortUrl(String url) {
 
-        String shortUrl = Hashing.murmur3_32_fixed().hashString(url, Charset.defaultCharset()).toString();
-        return shortUrl;
+        String ShortUrl = Hashing.murmur3_32_fixed().hashString(url, Charset.defaultCharset()).toString();
+        return ShortUrl;
     }
 
     public static boolean isUrlValid(String url) {
