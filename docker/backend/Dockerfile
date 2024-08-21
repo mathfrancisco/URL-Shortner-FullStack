@@ -14,7 +14,7 @@ COPY --from=build /build/target/UrlShortner-*.jar /app/
 
 EXPOSE 8080
 
-ENV DB_URL=jdbc:mysql://mysql:3306/urls
+ENV DB_URL=jdbc:mysql://localhost:3306/springboot
 ENV ACTIVE_PROFILE=${PROFILE}
 ENV JAR_VERSION=${APP_VERSION}
 
