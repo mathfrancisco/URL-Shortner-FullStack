@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ProjectUrl</groupId>
 	<artifactId>UrlShortner</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>UrlShortner</name>
 	<description>Project Full-stack of a UrlShortner</description>
 	<url/>
