@@ -3,8 +3,13 @@ package ProjectUrl.UrlShortner.repository;
 import ProjectUrl.UrlShortner.modal.Url;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-public interface UrlRepository extends JpaRepository<Url,Integer> {
+@Repository
+public interface UrlRepository extends JpaRepository<Url, String> {
+    
+    @Query("SELECT u.originalUrl FROM Url u WHERE u.shortUrl = :shortUrl")
+    String findOriginalUrlByShortUrl(String shortUrl);
 
-@Query(value = "select url from Url where ShortUrl = ?1", nativeQuery = true)
-String findByShortUrl(String id);}
+    Url findByShortUrl(String shortUrl);
+}
