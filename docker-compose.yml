@@ -17,14 +17,20 @@ services:
       - spring-demo
 
   app:
-    build: .
+    container_name: spring # Custom container name here
+    image: openjdk:11-jre-slim
     ports:
       - "8080:8080"
+    volumes:
+      - ./target:/app
+    working_dir: /app
+    command: java -jar UrlShortner.jar
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
-      SPRING_PROFILE_ACTIVE: dev
+    depends_on:
+      - mysql
     networks:
       - spring-demo
 

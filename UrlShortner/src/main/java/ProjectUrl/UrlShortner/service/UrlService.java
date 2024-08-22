@@ -19,7 +19,7 @@ public class UrlService {
     private UrlRepository urlRepository;
 
     @Transactional(readOnly = true)
-    public String getOriginalUrl(String id) {
+    public Url getOriginalUrl(String id) {
         return urlRepository.findByShortUrl(id);
     }
 
