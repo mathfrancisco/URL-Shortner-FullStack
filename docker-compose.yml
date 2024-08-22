@@ -1,7 +1,5 @@
 version: '3'
-
 services:
-
   mysql:
     container_name: urls
     image: mysql:8.0
@@ -19,11 +17,7 @@ services:
       - spring-demo
 
   app:
-    build:
-      context: docker
-      dockerfile: docker/backend/Dockerfile
-      args:
-        - PROFILE=dev
+    build: .
     ports:
       - "8080:8080"
     environment:
@@ -31,7 +25,6 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
       SPRING_PROFILE_ACTIVE: dev
-
     networks:
       - spring-demo
 
