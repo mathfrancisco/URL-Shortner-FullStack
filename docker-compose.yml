@@ -15,18 +15,30 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - spring-demo
 
   app:
-    build: .
+    build:
+      context: docker
+      dockerfile: docker/backend/Dockerfile
+      args:
+        - PROFILE=dev
     ports:
       - "8080:8080"
-    environment:                                                     
-SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/springboot
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: root
-    depends_on:
-      - mysql
+      SPRING_PROFILE_ACTIVE: dev
+
+    networks:
+      - spring-demo
+
+networks:
+  spring-demo:
+    driver: bridge
 
 volumes:
   mysql-data:
-
+    driver: local
