@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ProjectUrl</groupId>
-	<artifactId>UrlShortner</artifactId>
+	<artifactId>urlshortner</artifactId>
 	<version>1.0.0</version>
-	<name>UrlShortner</name>
+	<name>urlshortner</name>
 	<description>Project Full-stack of a UrlShortner</description>
 	<url/>
 	<licenses>

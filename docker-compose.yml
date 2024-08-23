@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   mysql:
     container_name: urls
@@ -17,20 +17,26 @@ services:
       - spring-demo
 
   app:
-    container_name: spring # Custom container name here
-    image: openjdk:11-jre-slim
+    container_name: urlshortner
+    build:
+      context: .
+      dockerfile: Dockerfile # Adjust this path if necessary
     ports:
       - "8080:8080"
-    volumes:
-      - ./target:/app
-    working_dir: /app
-    command: java -jar UrlShortner.jar
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
     depends_on:
       - mysql
+    networks:
+      - spring-demo
+
+  spring-api:
+    container_name: spring-api
+    image: url-shortner-fullstack-app # Ensure this matches the image name exactly
+    ports:
+      - "8081:8080" # Adjust the host port if 8080 is already in use
     networks:
       - spring-demo
 

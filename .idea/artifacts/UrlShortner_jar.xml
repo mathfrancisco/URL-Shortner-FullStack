@@ -2,7 +2,7 @@
   <artifact type="jar" name="UrlShortner:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/UrlShortner_jar</output-path>
     <root id="archive" name="UrlShortner.jar">
-      <element id="module-output" name="UrlShortner" />
+      <element id="module-output" name="urlshortner" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.2/jackson-module-parameter-names-2.17.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-orm/6.1.11/spring-orm-6.1.11.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar" path-in-jar="/" />
