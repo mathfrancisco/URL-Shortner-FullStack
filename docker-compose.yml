@@ -17,16 +17,17 @@ services:
       - spring-demo
 
   app:
-    container_name: urlshortner
+    container_name: urlshortner-local
     build:
       context: .
-      dockerfile: Dockerfile # Adjust this path if necessary
+      dockerfile: Dockerfile
     ports:
       - "8081:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
+      SERVER_SERVLET_CONTEXT_PATH: /url/shortner
     depends_on:
       - mysql
     networks:
@@ -34,11 +35,18 @@ services:
 
   spring-api:
     container_name: spring-api
-    image: url-shortner-fullstack-app # Ensure this matches the image name exactly
+    image: url-shortner-fullstack-app
     ports:
-      - "8080:8080" # Adjust the host port if 8080 is already in use
+      - "8080:8080"
+    environment:
+      SERVER_SERVLET_CONTEXT_PATH: /url/shortner
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 123
     networks:
       - spring-demo
+    depends_on:
+      - mysql
 
 networks:
   spring-demo:
