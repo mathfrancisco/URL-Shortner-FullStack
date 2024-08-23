@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile # Adjust this path if necessary
     ports:
-      - "8080:8080"
+      - "3636:3636"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
@@ -36,7 +36,7 @@ services:
     container_name: spring-api
     image: url-shortner-fullstack-app # Ensure this matches the image name exactly
     ports:
-      - "8081:8080" # Adjust the host port if 8080 is already in use
+      - "8080:8080" # Adjust the host port if 8080 is already in use
     networks:
       - spring-demo
 
