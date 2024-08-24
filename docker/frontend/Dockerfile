@@ -17,8 +17,8 @@ RUN ng build --configuration production
 
 FROM nginx:alpine
 
-# Copy nginx configuration from the front directory
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# Copy nginx configuration from the root directory
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built application files
 COPY --from=build-stage /app/dist/front /usr/share/nginx/html
