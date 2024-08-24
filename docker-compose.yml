@@ -1,4 +1,5 @@
 
+
 services:
   mysql:
     container_name: urls
@@ -17,7 +18,7 @@ services:
       - spring-demo
 
   app:
-    container_name: urlshortner-local
+    container_name: urlshortner
     build:
       context: .
       dockerfile: Dockerfile
@@ -47,6 +48,19 @@ services:
       - spring-demo
     depends_on:
       - mysql
+
+  front:
+    container_name: front
+    build:
+      context: ./docker/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8082:80"
+    depends_on:
+      - spring-api
+    networks:
+      - spring-demo
+
 
 networks:
   spring-demo:
