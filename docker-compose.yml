@@ -50,17 +50,17 @@ services:
       - mysql
 
   front:
-    container_name: front
-    build:
-      context: ./docker/frontend
-      dockerfile: Dockerfile
-    ports:
-      - "8082:80"
-    depends_on:
-      - spring-api
-    networks:
-      - spring-demo
-
+  container_name: front
+  image: url-shortner-fullstack-app/front
+  build:
+    context: .
+    dockerfile: docker/frontend/Dockerfile
+  ports:
+    - "8082:80"
+  depends_on:
+    - spring-api
+  networks:
+    - spring-demo
 
 networks:
   spring-demo:
