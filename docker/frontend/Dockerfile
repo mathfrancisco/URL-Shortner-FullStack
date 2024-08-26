@@ -1,26 +1,25 @@
-FROM node:20 as build-stage
+FROM node:16 AS build
 
 WORKDIR /app
 
-# Install Node.js packages
 COPY package*.json ./
-RUN npm install
-
-# Install Angular CLI globally
 RUN npm install -g @angular/cli@latest
 
-# Copy source code
 COPY . .
+RUN npm run build --configuration production
 
-# Build the application
-RUN ng build --configuration production
-
+# Stage 2: Run with Nginx
 FROM nginx:alpine
 
-# Copy nginx configuration from the front directory
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# Copy nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy built application files
-COPY --from=build-stage /app/dist/front /usr/share/nginx/html
+# Copy built Angular app
+COPY --from=build /app/dist/front /usr/share/nginx/html
 
-EXPOSE 80
+# Remove default nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
+
