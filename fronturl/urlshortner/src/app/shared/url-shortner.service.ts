@@ -11,11 +11,11 @@ interface UrlResponse {
   providedIn: 'root'
 })
 export class UrlShorterService {
-  private serviceUrl: string = 'http://localhost:8080/url/shorter';
+  private apiUrl: string = 'http://localhost:8081/url/shorter'; // Updated URL
 
   constructor(private http: HttpClient) {}
 
   getUrlShorterUrl(url: string): Observable<UrlResponse> {
-    return this.http.post<UrlResponse>(this.serviceUrl, { url });
+    return this.http.post<UrlResponse>(`${this.apiUrl}/`, { url });
   }
 }
