@@ -35,17 +35,17 @@ services:
       - spring-demo
 
   front:
-  container_name: front
-  image: url-shortner-fullstack-app/front
-  build:
-    context: .
-    dockerfile: docker/frontend/Dockerfile
-  ports:
-    - "8081:80"
-  depends_on:
-    - app
-  networks:
-    - spring-demo
+    container_name: front
+    image: url-shortner-fullstack-app/front
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - app
+    networks:
+      - spring-demo
 
 networks:
   spring-demo:
