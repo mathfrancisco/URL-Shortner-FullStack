@@ -11,7 +11,11 @@ interface UrlResponse {
   providedIn: 'root'
 })
 export class UrlShorterService {
+<<<<<<< Updated upstream
   private apiUrl: string = 'http://localhost:8081/url/shorter'; // Updated URL
+=======
+  private serviceUrl: string = 'http://localhost:8080/url/shorten';
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) {}
 

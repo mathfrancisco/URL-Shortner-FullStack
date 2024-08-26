@@ -13,6 +13,7 @@ import static ProjectUrl.UrlShortner.logic.GenerateShortUrl.isUrlValid;
 
 @Service
 public class UrlService {
+
     private static final Logger logger = LoggerFactory.getLogger(UrlService.class);
 
     @Autowired
@@ -24,6 +25,7 @@ public class UrlService {
     }
 
     @Transactional
+<<<<<<< Updated upstream
 public Url generateShortUrl(String url) {
     logger.info("Attempting to generate short URL for: {}", url);
     if (!isUrlValid(url)) {
@@ -44,3 +46,24 @@ public Url generateShortUrl(String url) {
     }
 }
 }
+=======
+    public Url generateShortUrl(String url) throws IllegalArgumentException {
+        validateAndGenerateShortUrl(url);
+        return urlRepository.save(new Url());
+    }
+
+    private void validateAndGenerateShortUrl(String url) throws IllegalArgumentException {
+        if (!isUrlValid(url)) {
+            throw new IllegalArgumentException("URL is not valid");
+        }
+
+        String shortUrl = getShortUrl(url);
+
+        if (urlRepository.existsById(shortUrl)) {
+            throw new IllegalArgumentException("Short URL already exists");
+        }
+
+        logger.info("Generated short URL for original URL: {} => {}", url, shortUrl);
+    }
+}
+>>>>>>> Stashed changes
