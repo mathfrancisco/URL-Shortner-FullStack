@@ -16,6 +16,17 @@ export class UrlShorterService {
   constructor(private http: HttpClient) {}
 
   getUrlShorterUrl(url: string): Observable<UrlResponse> {
-    return this.http.post<UrlResponse>(`${this.apiUrl}/`, { url });
-  }
+  return this.http.post<UrlResponse>(`${this.apiUrl}/`, { url })
+    .pipe(
+      catchError(this.handleError('getUrlShorterUrl', []))
+    );
+}
+
+private handleError<T>(operation = 'operation', result?: T) {
+  return (error: any): Observable<T> => {
+    console.error(error); // log to console instead
+    return of(result as T);
+  };
+}
+
 }
