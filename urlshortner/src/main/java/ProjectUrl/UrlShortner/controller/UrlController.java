@@ -25,13 +25,12 @@ public class UrlController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Url generateShortUrl(@RequestBody String url) {
-        if (url == null || url.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "URL cannot be empty");
-        }
-        // Assuming the service method name is correct and it returns an Url object
-        return urlService.generateShortUrl(url);
+@ResponseStatus(HttpStatus.CREATED)
+public Url generateShortUrl(@RequestBody UrlRequest urlRequest) {
+    if (urlRequest.getUrl() == null || urlRequest.getUrl().isEmpty()) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "URL cannot be empty");
     }
+    return urlService.generateShortUrl(urlRequest.getUrl());
+}
 
 }
