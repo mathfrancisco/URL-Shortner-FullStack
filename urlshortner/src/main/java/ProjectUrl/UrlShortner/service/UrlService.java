@@ -24,16 +24,23 @@ public class UrlService {
     }
 
     @Transactional
-    public Url generateShortUrl(String url) {
-        if (!isUrlValid(url)) {
-            logger.error("Invalid URL: {}", url);
-            throw new IllegalArgumentException("URL is not valid");
-        }
-
-        Url urlObject = new Url();
-        urlObject.setOriginalUrl(url);
-        urlObject.setShortUrl(getShortUrl(url));
-
-        return urlRepository.save(urlObject);
+public Url generateShortUrl(String url) {
+    logger.info("Attempting to generate short URL for: {}", url);
+    if (!isUrlValid(url)) {
+        logger.error("Invalid URL: {}", url);
+        throw new IllegalArgumentException("URL is not valid");
     }
+
+    Url urlObject = new Url();
+    urlObject.setOriginalUrl(url);
+    urlObject.setShortUrl(getShortUrl(url));
+
+    logger.info("Saving URL object: {}", urlObject);
+    try {
+        return urlRepository.save(urlObject);
+    } catch (Exception e) {
+        logger.error("Error saving URL object", e);
+        throw e;
+    }
+}
 }
