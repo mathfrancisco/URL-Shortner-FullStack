@@ -26,11 +26,17 @@ public class UrlController {
 
     @PostMapping
 @ResponseStatus(HttpStatus.CREATED)
-public Url generateShortUrl(@RequestBody UrlRequest urlRequest) {
-    if (urlRequest.getUrl() == null || urlRequest.getUrl().isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "URL cannot be empty");
+public ResponseEntity<?> generateShortUrl(@RequestBody UrlRequest urlRequest) {
+    try {
+        Url url = urlService.generateShortUrl(urlRequest.getUrl());
+        return ResponseEntity.status(HttpStatus.CREATED).body(url);
+    } catch (IllegalArgumentException e) {
+        logger.error("Invalid URL provided", e);
+        return ResponseEntity.badRequest().body("Invalid URL provided");
+    } catch (Exception e) {
+        logger.error("Error generating short URL", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating short URL");
     }
-    return urlService.generateShortUrl(urlRequest.getUrl());
 }
 
 }
