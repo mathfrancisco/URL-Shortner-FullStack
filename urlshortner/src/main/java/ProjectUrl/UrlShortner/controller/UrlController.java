@@ -25,9 +25,9 @@ public class UrlController {
     }
 
     @PostMapping
-@ResponseStatus(HttpStatus.CREATED)
-public ResponseEntity<?> generateShortUrl(@RequestBody UrlRequest urlRequest) {
-    try {
+   @ResponseStatus(HttpStatus.CREATED)
+   public ResponseEntity<?> generateShortUrl(@RequestBody UrlRequest urlRequest) {
+      try {
         Url url = urlService.generateShortUrl(urlRequest.getUrl());
         return ResponseEntity.status(HttpStatus.CREATED).body(url);
     } catch (IllegalArgumentException e) {
