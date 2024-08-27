@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UrlshortService } from './urlshort.service';
+import {UrlShorterService} from "./urlshort.service";
 
-describe('UrlshortService', () => {
-  let service: UrlshortService;
+describe('UrlShorterService', () => {
+  let service: UrlShorterService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UrlshortService);
+    service = TestBed.inject(UrlShorterService);
   });
 
   it('should be created', () => {

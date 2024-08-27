@@ -30,6 +30,7 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
       SERVER_SERVLET_CONTEXT_PATH: /url/shorten
+      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081
     depends_on:
       - mysql
     networks:
