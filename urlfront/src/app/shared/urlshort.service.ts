@@ -10,7 +10,8 @@ export class UrlShorterService {
 
   constructor(private http : HttpClient) {}
 
-  getUrlShorterUrl(url : string): Observable<any> {
-    return this.http.post<any>(this.serviceUrl, url); // Ensure the backend expects a POST request with a body
-  }
+  getUrlShorterUrl(url: string): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
+  return this.http.post<any>(this.serviceUrl, url, { headers });
+}
 }
