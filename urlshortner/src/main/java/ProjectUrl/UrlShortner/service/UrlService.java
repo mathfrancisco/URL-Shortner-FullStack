@@ -25,8 +25,6 @@ public class UrlService {
     }
 
     @Transactional
-
-
     public Url generateShortUrl(String url) {
         logger.info("Attempting to generate short URL for: {}", url);
         if (!isUrlValid(url)) {

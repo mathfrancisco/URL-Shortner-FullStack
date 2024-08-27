@@ -10,9 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("url/shorten")
-@CrossOrigin(origins = "http://localhost:4200")
+
 public class UrlController {
 
     private static final Logger logger = LoggerFactory.getLogger(UrlController.class);
@@ -30,12 +34,19 @@ public class UrlController {
     }
 
     @PostMapping
-    public ResponseEntity<Url> generateShortUrl(@RequestBody String url) {
+    public ResponseEntity<Map<String, String>> generateShortUrl(@RequestBody String url) {
         try {
             Url generatedUrl = urlService.generateShortUrl(url);
-            return ResponseEntity.status(HttpStatus.CREATED).body(generatedUrl);
+            Map<String, String> response = new HashMap<>();
+            response.put("originalUrl", url);
+            response.put("shortUrl", generatedUrl.getShortUrl());
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+            logger.error("Invalid URL format", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "Invalid URL format"));
+        } catch (Exception e) {
+            logger.error("Error generating short URL", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "Error generating short URL"));
         }
     }
 
@@ -45,10 +56,4 @@ public class UrlController {
         return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        logger.error("An unexpected error occurred: {}", e.getMessage(), e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("An unexpected error occurred. Please try again later.");
-    }
 }

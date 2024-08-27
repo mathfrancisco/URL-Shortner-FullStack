@@ -28,7 +28,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
-      SERVER_SERVLET_CONTEXT_PATH: /url/shorter
+      SERVER_SERVLET_CONTEXT_PATH: /url/shorten
     depends_on:
       - mysql
     networks:
@@ -38,8 +38,8 @@ services:
     container_name: front
     image: url-shortner-fullstack-app/front
     build:
-      context: .
-      dockerfile: docker/frontend/Dockerfile
+      context: ./urlfront
+      dockerfile: Dockerfile
     ports:
       - "8081:80"
     depends_on:

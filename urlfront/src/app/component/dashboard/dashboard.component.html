@@ -1,0 +1,50 @@
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="text-center text-primary">Encurtador de URL</h1>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-body p-4">
+          <div class="input-group">
+            <input type="text" class="form-control form-control-lg"
+                   placeholder="Insira a URL"
+                   [(ngModel)]="url"
+                   name="url"
+                   required>
+            <button class="btn btn-primary btn-lg" type="button"
+                    (click)="generateShortUrl()"
+                    [disabled]="!url || !url.trim()"
+                    id="shorten-button">
+              Encurtar
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4" *ngIf="isUrlGenerated || isErrorGenerated">
+    <div class="col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-body p-4">
+          <div *ngIf="isErrorGenerated" class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>Por favor, insira uma URL válida.
+          </div>
+          <div *ngIf="isUrlGenerated" class="text-center">
+            <h4 class="mb-3">URL Encurtada:</h4>
+            <a href="{{'https://link/' + shortUrl}}" target="_blank" class="btn btn-outline-primary btn-lg">
+              {{'https://link/' + shortUrl}}
+            </a>
+            <!-- Exibindo o valor real de shortUrl para verificar -->
+            <p class="mt-2">Valor de shortUrl: {{ shortUrl }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
