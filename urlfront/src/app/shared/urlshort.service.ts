@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Corrected import
+import {HttpClient, HttpHeaders} from '@angular/common/http'; // Corrected import
 import { Observable } from 'rxjs';
 
 @Injectable({
