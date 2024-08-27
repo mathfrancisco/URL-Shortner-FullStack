@@ -2,46 +2,52 @@ package ProjectUrl.UrlShortner.service;
 
 import ProjectUrl.UrlShortner.modal.Url;
 import ProjectUrl.UrlShortner.repository.UrlRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
 
 import static ProjectUrl.UrlShortner.logic.GenerateShortUrl.getShortUrl;
-import static ProjectUrl.UrlShortner.logic.GenerateShortUrl.isUrlValid;
+
 
 @Service
+@Transactional
 public class UrlService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UrlService.class);
 
     @Autowired
     private UrlRepository urlRepository;
 
-    @Transactional(readOnly = true)
-    public Url getOriginalUrl(String id) {
-        return urlRepository.findByShortUrl(id);
+    public Url getOriginalUrl(String shortUrl) {
+        Url url = urlRepository.findByShortUrl(shortUrl);
+        if (url == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "URL not found");
+        }
+        return url;
     }
 
-    @Transactional
-    public Url generateShortUrl(String url) {
-        logger.info("Attempting to generate short URL for: {}", url);
-        if (!isUrlValid(url)) {
-            logger.error("Invalid URL: {}", url);
-            throw new IllegalArgumentException("URL is not valid");
+    public Url generateShortUrl(String originalUrl) {
+        Url existingUrl = urlRepository.findByOriginalUrl(originalUrl);
+        if (existingUrl != null && !isUrlExpired(existingUrl)) {
+            return existingUrl;
         }
 
         Url urlObject = new Url();
-        urlObject.setOriginalUrl(url);
-        urlObject.setShortUrl(getShortUrl(url));
+        urlObject.setOriginalUrl(originalUrl);
+        urlObject.setShortUrl(getShortUrl(originalUrl));
+        long expirationDays = 1;
+        urlObject.setExpirationDate(LocalDateTime.now().plusDays(expirationDays));
 
-        logger.info("Saving URL object: {}", urlObject);
-        try {
-            return urlRepository.save(urlObject);
-        } catch (Exception e) {
-            logger.error("Error saving URL object", e);
-            throw e;
-        }
+        return urlRepository.save(urlObject);
+    }
+
+    private boolean isUrlExpired(@NotNull Url url) {
+        return LocalDateTime.now().isAfter(url.getExpirationDate());
     }
 }
+
+
+

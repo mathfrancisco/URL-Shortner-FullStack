@@ -37,7 +37,7 @@
           </div>
           <div *ngIf="isUrlGenerated" class="text-center">
             <h4 class="mb-3">URL Encurtada:</h4>
-            <a href="{{'https://link/' + shortUrl}}" target="_blank" class="btn btn-outline-primary btn-lg">
+            <a href="{{originalUrl}}" target="_blank" class="btn btn-outline-primary btn-lg">
               {{'https://link/' + shortUrl}}
             </a>
             <!-- Exibindo o valor real de shortUrl para verificar -->

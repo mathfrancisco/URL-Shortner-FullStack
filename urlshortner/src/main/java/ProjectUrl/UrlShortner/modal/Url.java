@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "url")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Url {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +21,15 @@ public class Url {
     @Column(nullable = false, unique = true)
     private String shortUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String originalUrl;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private LocalDateTime expirationDate;
+
+    // Getters e setters aqui
 }
+

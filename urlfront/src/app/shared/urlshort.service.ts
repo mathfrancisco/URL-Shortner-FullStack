@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UrlShorterService {
-  serviceUrl : string = 'http://localhost:8080/url/shorten'; // Ensure this URL is correct and accessible
+  serviceUrl : string = 'http://localhost:8081/url/shorten'; // Ensure this URL is correct and accessible
 
   constructor(private http : HttpClient) {}
 

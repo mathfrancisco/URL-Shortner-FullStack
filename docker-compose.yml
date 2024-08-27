@@ -19,9 +19,10 @@ services:
 
   app:
     container_name: urlshortner
+    image: url-shortner-fullstack-app/urlshortner
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/backend/Dockerfile
     ports:
       - "8080:8080"
     environment:

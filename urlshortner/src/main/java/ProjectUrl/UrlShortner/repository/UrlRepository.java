@@ -7,9 +7,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UrlRepository extends JpaRepository<Url, String> {
+public interface UrlRepository extends JpaRepository<Url, Long> {
 
-    // Custom query to find a Url by its short URL
     @Query("SELECT u FROM Url u WHERE u.shortUrl = :shortUrl")
     Url findByShortUrl(@Param("shortUrl") String shortUrl);
+
+    @Query("SELECT u FROM Url u WHERE u.originalUrl = :originalUrl")
+    Url findByOriginalUrl(@Param("originalUrl") String originalUrl);
 }
+
+
+
