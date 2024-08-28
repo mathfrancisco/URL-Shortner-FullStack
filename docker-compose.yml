@@ -29,7 +29,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
-      SERVER_SERVLET_CONTEXT_PATH: /url/shorten
+      SERVER_SERVLET_CONTEXT_PATH: /
       SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081
     depends_on:
       - mysql
@@ -48,6 +48,8 @@ services:
       - app
     networks:
       - spring-demo
+    volumes:
+      - ./urlfront/nginx.conf:/etc/nginx/nginx.conf
 
 networks:
   spring-demo:

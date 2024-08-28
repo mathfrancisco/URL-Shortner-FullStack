@@ -21,7 +21,6 @@
                     id="shorten-button">
               Encurtar
             </button>
-
           </div>
         </div>
       </div>
@@ -37,11 +36,13 @@
           </div>
           <div *ngIf="isUrlGenerated" class="text-center">
             <h4 class="mb-3">URL Encurtada:</h4>
-            <a href="{{originalUrl}}" target="_blank" class="btn btn-outline-primary btn-lg">
-              {{'https://link/' + shortUrl}}
+            <a [href]="originalUrl" target="_blank" class="btn btn-outline-primary btn-lg">
+              {{getFullShortUrl()}}
             </a>
-            <!-- Exibindo o valor real de shortUrl para verificar -->
-            <p class="mt-2">Valor de shortUrl: {{ shortUrl }}</p>
+            <p class="mt-2">URL Original: {{ originalUrl }}</p>
+            <button class="btn btn-secondary mt-2" (click)="copyToClipboard()">
+              Copiar URL Encurtada
+            </button>
           </div>
         </div>
       </div>
