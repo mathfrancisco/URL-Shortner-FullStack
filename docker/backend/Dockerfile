@@ -12,8 +12,7 @@ ARG PROFILE=dev
 ARG APP_VERSION=1.0.0
 
 WORKDIR /app
-COPY --from=build /build/target/urlshortner-*.jar ./urlshortner.jar
-
+COPY --from=build /build/target/urlshortner-1.0.0.jar ./urlshortner.jar
 
 EXPOSE 8080
 

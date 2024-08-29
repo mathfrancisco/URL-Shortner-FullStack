@@ -19,22 +19,21 @@ services:
 
   app:
     container_name: urlshortner
-    image: url-shortner-fullstack-app/urlshortner
     build:
-      context: .
-      dockerfile: docker/backend/Dockerfile
+      context: ./urlshortner
+      dockerfile: ../docker/backend/Dockerfile
     ports:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
-      SERVER_SERVLET_CONTEXT_PATH: /
-      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081
+      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081,http://localhost:8080,http://localhost:4200
     depends_on:
       - mysql
     networks:
       - spring-demo
+
 
   front:
     container_name: front
