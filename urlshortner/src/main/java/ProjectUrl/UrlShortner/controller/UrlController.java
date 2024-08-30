@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8080","http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8080", "http://localhost:4200", "http://3.19.59.78", "http://3.19.59.78:8081"})
 @RequestMapping("/api")
 public class UrlController {
 
