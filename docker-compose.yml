@@ -28,7 +28,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
-      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081,http://localhost:8080,http://localhost:4200,http://3.23.114.107,http://3.23.114.107:8081
+      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081,http://localhost:8080,http://localhost:4200,http://3.22.117.151,http://3.22.117.151:80
     depends_on:
       - mysql
     networks:
@@ -42,7 +42,7 @@ services:
       context: ./urlfront
       dockerfile: Dockerfile
     ports:
-      - "8081:80"
+      - "80:80"
     depends_on:
       - app
     networks:
