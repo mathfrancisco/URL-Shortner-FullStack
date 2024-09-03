@@ -3,7 +3,7 @@ FROM node:18 AS build-stage
 WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 # Install Angular CLI globally
 RUN npm install -g @angular/cli@16.2.14
 # Copy source code
