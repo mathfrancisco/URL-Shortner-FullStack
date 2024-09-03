@@ -21,7 +21,10 @@ public class CorsConfig {
                                 "http://3.22.117.151:80",
                                 "http://localhost:8081",
                                 "http://localhost:4200",
-                                "http://localhost:8080"
+                                "http://localhost:8080",
+                                "http://3.132.42.187",  // Novo IP elástico
+                                "http://3.132.42.187:8080",
+                                "http://3.132.42.187:80"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
