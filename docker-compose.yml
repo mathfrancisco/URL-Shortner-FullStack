@@ -48,7 +48,7 @@ services:
     networks:
       - spring-demo
     volumes:
-      - ./urlfront/nginx.conf:/etc/nginx/nginx.conf
+      - ./urlfront/nginx.conf:/etc/nginx/nginx.conf:ro
 
 networks:
   spring-demo:
