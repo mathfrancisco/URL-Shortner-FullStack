@@ -16,15 +16,12 @@ public class CorsConfig {
             public void addCorsMappings(@NotNull CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "http://3.22.117.151",
-                                "http://3.22.117.151:8081",
-                                "http://3.22.117.151:80",
                                 "http://localhost:8081",
                                 "http://localhost:4200",
                                 "http://localhost:8080",
-                                "http://3.132.42.187",  // Novo IP elástico
-                                "http://3.132.42.187:8080",
-                                "http://3.132.42.187:80"
+                                "http://54.232.58.42",  // Novo IP elástico
+                                "http://54.232.58.42:8080",
+                                "http://54.232.58.42:80"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
