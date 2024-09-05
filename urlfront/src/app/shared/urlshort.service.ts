@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UrlShorterService {
-  serviceUrl: string = '/api/';  // Atualizado para usar caminho relativo
+  serviceUrl: string = '/api';
 
   constructor(private http: HttpClient) {}
 
