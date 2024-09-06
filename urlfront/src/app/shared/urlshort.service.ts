@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError,of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -38,9 +38,9 @@ export class UrlShorterService {
 
   private handleSuccessResponse(response: any): Observable<any> {
     if (response.body && typeof response.body === 'object') {
-      return Observable.of(response.body);
+      return of(response.body);
     } else if (typeof response === 'string') {
-      return Observable.of({ shortened_url: response });
+      return of({ shortened_url: response });
     } else {
       throw new Error('Resposta inválida do servidor');
     }
