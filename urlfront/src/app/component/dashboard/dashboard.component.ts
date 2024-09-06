@@ -12,37 +12,37 @@ export class DashboardComponent implements OnInit {
   isUrlGenerated: boolean = false;
   isErrorGenerated: boolean = false;
   shortUrl: string = "";
+  errorMessage: string = "";
 
   constructor(private urlShorterService: UrlShorterService) {}
 
   ngOnInit(): void {
-    this.isUrlGenerated = false;
+    this.resetState();
   }
 
   generateShortUrl() {
     if (!this.url) {
-      this.isErrorGenerated = true;
+      this.setErrorState("Por favor, insira uma URL válida.");
       return;
     }
 
-    this.urlShorterService.getUrlShorterUrl(this.url).subscribe(
-      (res: { shortUrl: string; originalUrl: string; } | null) => {
+    this.resetState();
+
+    this.urlShorterService.getUrlShorterUrl(this.url).subscribe({
+      next: (res: { shortUrl: string; originalUrl: string; } | null) => {
         if (res == null) {
-          this.isErrorGenerated = true;
-          this.isUrlGenerated = false;
+          this.setErrorState("Não foi possível gerar a URL curta. Por favor, tente novamente.");
         } else {
           this.isUrlGenerated = true;
-          this.isErrorGenerated = false;
           this.shortUrl = res.shortUrl;
           this.originalUrl = res.originalUrl;
         }
       },
-      err => {
+      error: (err) => {
         console.error('Error:', err);
-        this.isUrlGenerated = false;
-        this.isErrorGenerated = true;
+        this.setErrorState("Ocorreu um erro ao encurtar a URL. Por favor, tente novamente mais tarde.");
       }
-    );
+    });
   }
 
   getFullShortUrl(): string {
@@ -51,10 +51,31 @@ export class DashboardComponent implements OnInit {
 
   copyToClipboard() {
     const fullUrl = this.getFullShortUrl();
-    navigator.clipboard.writeText(fullUrl).then(() => {
-      alert('URL copiada para a área de transferência!');
-    }, (err) => {
-      console.error('Erro ao copiar URL: ', err);
-    });
+    navigator.clipboard.writeText(fullUrl).then(
+      () => {
+        this.showAlert('URL copiada para a área de transferência!');
+      },
+      (err) => {
+        console.error('Erro ao copiar URL: ', err);
+        this.showAlert('Não foi possível copiar a URL. Por favor, tente copiar manualmente.');
+      }
+    );
+  }
+
+  private resetState() {
+    this.isUrlGenerated = false;
+    this.isErrorGenerated = false;
+    this.errorMessage = "";
+  }
+
+  private setErrorState(message: string) {
+    this.isErrorGenerated = true;
+    this.isUrlGenerated = false;
+    this.errorMessage = message;
+  }
+
+  private showAlert(message: string) {
+    // You might want to replace this with a more user-friendly notification system
+    alert(message);
   }
 }
