@@ -7,7 +7,7 @@ import { catchError, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UrlShorterService {
-  serviceUrl: string = 'http://54.232.58.42/api/';  // Updated with trailing slash
+  serviceUrl: string = 'http://54.232.58.42/api/';
 
   constructor(private http: HttpClient) {}
 
@@ -21,12 +21,29 @@ export class UrlShorterService {
       switchMap(response => {
         if (response.status === 301 || response.status === 302) {
           const newUrl = response.headers.get('Location');
-          return this.http.post<any>(newUrl || this.serviceUrl, url, { headers });
+          console.log('Redirecionando para:', newUrl);
+          return this.handleRedirect(newUrl || this.serviceUrl, url, headers);
         }
-        return response.body ? response.body : response;
+        return this.handleSuccessResponse(response);
       }),
       catchError(this.handleError)
     );
+  }
+
+  private handleRedirect(url: string, originalUrl: string, headers: HttpHeaders): Observable<any> {
+    return this.http.post<any>(url, originalUrl, { headers }).pipe(
+      switchMap(response => this.handleSuccessResponse(response))
+    );
+  }
+
+  private handleSuccessResponse(response: any): Observable<any> {
+    if (response.body && typeof response.body === 'object') {
+      return Observable.of(response.body);
+    } else if (typeof response === 'string') {
+      return Observable.of({ shortened_url: response });
+    } else {
+      throw new Error('Resposta inválida do servidor');
+    }
   }
 
   private handleError(error: HttpErrorResponse) {
