@@ -34,7 +34,7 @@ public class UrlController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping(value = "/", consumes = "text/plain")
     public ResponseEntity<Map<String, String>> generateShortUrl(@RequestBody String url) {
         try {
             Url generatedUrl = urlService.generateShortUrl(url);
