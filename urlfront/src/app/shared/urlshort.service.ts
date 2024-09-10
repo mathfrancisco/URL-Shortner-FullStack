@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse,HttpResponse } from '@angular/common/http';
 import { Observable, throwError,of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ export class UrlShorterService {
 
   constructor(private http: HttpClient) {}
 
-  getUrlShorterUrl(url: string): Observable<any> {
+  getUrlShorterUrl(url: string): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
     return this.http.post<any>(this.serviceUrl, url, {
       headers,
@@ -36,11 +36,9 @@ export class UrlShorterService {
     );
   }
 
-  private handleSuccessResponse(response: any): Observable<any> {
+  private handleSuccessResponse(response: HttpResponse<any>): Observable<any> {
     if (response.body && typeof response.body === 'object') {
       return of(response.body);
-    } else if (typeof response === 'string') {
-      return of({ shortened_url: response });
     } else {
       throw new Error('Resposta inválida do servidor');
     }

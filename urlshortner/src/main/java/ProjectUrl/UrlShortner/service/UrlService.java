@@ -38,8 +38,8 @@ public class UrlService {
         Url urlObject = new Url();
         urlObject.setOriginalUrl(originalUrl);
         urlObject.setShortUrl(getShortUrl(originalUrl));
-        long expirationDays = 1;
-        urlObject.setExpirationDate(LocalDateTime.now().plusDays(expirationDays));
+        long expirationHours = 1; // Tempo de expiração aumentado
+        urlObject.setExpirationDate(LocalDateTime.now().plusHours(expirationHours));
 
         return urlRepository.save(urlObject);
     }
