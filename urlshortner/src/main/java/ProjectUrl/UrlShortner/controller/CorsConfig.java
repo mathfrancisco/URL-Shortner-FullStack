@@ -26,7 +26,8 @@ public class CorsConfig {
                                 "http://localhost:8080",
                                 "http://54.232.58.42",
                                 "http://54.232.58.42:8080",
-                                "http://54.232.58.42:80"
+                                "http://54.232.58.42:80",
+                                "http://54.232.58.42/api"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")

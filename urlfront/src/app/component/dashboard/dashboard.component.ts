@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { UrlShorterService } from "../../shared/urlshort.service";
 import { Clipboard } from '@angular/cdk/clipboard';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,13 +31,9 @@ export class DashboardComponent {
     this.urlShorterService.getUrlShorterUrl(this.url).subscribe({
       next: (response) => {
         console.log('Resposta recebida:', response);
-        if (response && response.shortUrl) {
-          this.isUrlGenerated = true;
-          this.shortUrl = response.shortUrl;
-          this.originalUrl = response.originalUrl;
-        } else {
-          this.setErrorState("Não foi possível gerar a URL curta. Por favor, tente novamente.");
-        }
+        this.isUrlGenerated = true;
+        this.shortUrl = response.shortUrl;
+        this.originalUrl = response.originalUrl;
       },
       error: (err) => {
         console.error('Erro:', err);
@@ -48,7 +43,7 @@ export class DashboardComponent {
   }
 
   getFullShortUrl(): string {
-    return `https://link/${this.shortUrl}`;
+    return `http://54.232.58.42/${this.shortUrl}`; // Ajuste esta URL conforme necessário
   }
 
   copyToClipboard() {
@@ -64,6 +59,8 @@ export class DashboardComponent {
     this.isUrlGenerated = false;
     this.isErrorGenerated = false;
     this.errorMessage = "";
+    this.shortUrl = "";
+    this.originalUrl = "";
   }
 
   private setErrorState(message: string) {

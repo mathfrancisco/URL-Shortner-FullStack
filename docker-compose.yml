@@ -28,7 +28,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urls?createDatabaseIfNotExists=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: 123
-      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081,http://localhost:8080,http://localhost:4200,http://54.232.58.42,http://54.232.58.42:80,http://54.232.58.42:8080
+      SPRING_MVC_CORS_ALLOWED-ORIGINS: http://localhost:8081,http://localhost:8080,http://localhost:4200,http://54.232.58.42,http://54.232.58.42:80,http://54.232.58.42:8080,http://54.232.58.42/api"
     depends_on:
       - mysql
     networks:
