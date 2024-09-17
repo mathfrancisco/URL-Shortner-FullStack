@@ -14,6 +14,7 @@ export class DashboardComponent {
   isErrorGenerated: boolean = false;
   shortUrl: string = "";
   errorMessage: string = "";
+  isNewUrl: boolean = false;
 
   constructor(
     private urlShorterService: UrlShorterService,
@@ -34,6 +35,7 @@ export class DashboardComponent {
         this.isUrlGenerated = true;
         this.shortUrl = response.shortUrl;
         this.originalUrl = response.originalUrl;
+        this.isNewUrl = response.isNew;
       },
       error: (err) => {
         console.error('Erro:', err);

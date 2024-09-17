@@ -48,6 +48,7 @@
               <a [href]="getFullShortUrl()" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-lg">
                 {{ getFullShortUrl() }}
               </a>
+              {{ isNewUrl ? 'Nova URL curta gerada.' : 'URL curta existente recuperada.' }}
             </p>
             <p class="mt-2">URL Original: <a [href]="originalUrl" target="_blank" rel="noopener noreferrer">{{ originalUrl }}</a></p>
             <button class="btn btn-secondary mt-2" (click)="copyToClipboard()">

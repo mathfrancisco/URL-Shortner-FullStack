@@ -11,7 +11,9 @@ export class UrlShorterService {
 
   constructor(private http: HttpClient) {}
 
-  getUrlShorterUrl(url: string): Observable<{shortUrl: string, originalUrl: string}> {
+  getUrlShorterUrl(url: string): Observable<{
+    isNew: boolean;
+    shortUrl: string, originalUrl: string}> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
 
     return this.http.post<any>(this.serviceUrl, url, {
