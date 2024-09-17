@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse,HttpResponse } from '@angular/common/http';
-import { Observable, throwError,of } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,46 +11,29 @@ export class UrlShorterService {
 
   constructor(private http: HttpClient) {}
 
-  getUrlShorterUrl(url: string): Observable<HttpResponse<any>> {
+  getUrlShorterUrl(url: string): Observable<{shortUrl: string, originalUrl: string}> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    return this.http.post<any>(this.serviceUrl, url, {
+
+    return this.http.post<{shortUrl: string, originalUrl: string}>(this.serviceUrl, url, {
       headers,
-      observe: 'response',
       withCredentials: true
     }).pipe(
-      switchMap(response => {
-        if (response.status === 301 || response.status === 302) {
-          const newUrl = response.headers.get('Location');
-          console.log('Redirecionando para:', newUrl);
-          return this.handleRedirect(newUrl || this.serviceUrl, url, headers);
-        }
-        return this.handleSuccessResponse(response);
+      map(response => {
+        console.log('Resposta do servidor:', response);
+        return response;
       }),
       catchError(this.handleError)
     );
   }
 
-  private handleRedirect(url: string, originalUrl: string, headers: HttpHeaders): Observable<any> {
-    return this.http.post<any>(url, originalUrl, { headers }).pipe(
-      switchMap(response => this.handleSuccessResponse(response))
-    );
-  }
-
-  private handleSuccessResponse(response: HttpResponse<any>): Observable<any> {
-    if (response.body && typeof response.body === 'object') {
-      return of(response.body);
-    } else {
-      throw new Error('Resposta inválida do servidor');
-    }
-  }
-
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Algo deu errado; por favor, tente novamente mais tarde.';
+    console.error('Erro na requisição:', error);
+    let errorMessage = 'Ocorreu um erro ao encurtar a URL. Por favor, tente novamente mais tarde.';
 
     if (error.error instanceof ErrorEvent) {
-      console.error('Ocorreu um erro:', error.error.message);
+      console.error('Erro do cliente:', error.error.message);
     } else {
-      console.error(`Backend retornou código ${error.status}, corpo era:`, error.error);
+      console.error(`Erro do servidor: ${error.status}, corpo:`, error.error);
       if (error.status === 405) {
         errorMessage = 'O método de requisição não é permitido para este recurso.';
       }

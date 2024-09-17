@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UrlShorterService } from "../../shared/urlshort.service";
 import { Clipboard } from '@angular/cdk/clipboard';
-import {HttpResponse} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   url: string = "";
   originalUrl: string = "";
   isUrlGenerated: boolean = false;
@@ -18,12 +18,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private urlShorterService: UrlShorterService,
-    private clipboard: Clipboard  // Inject Clipboard service
+    private clipboard: Clipboard
   ) {}
-
-  ngOnInit(): void {
-    this.resetState();
-  }
 
   generateShortUrl() {
     if (!this.url) {
@@ -34,18 +30,19 @@ export class DashboardComponent implements OnInit {
     this.resetState();
 
     this.urlShorterService.getUrlShorterUrl(this.url).subscribe({
-      next: (response: HttpResponse<any>) => { // Update the type here
-        if (response.body) {
+      next: (response) => {
+        console.log('Resposta recebida:', response);
+        if (response && response.shortUrl) {
           this.isUrlGenerated = true;
-          this.shortUrl = response.body.shortUrl; // Accessing the body
-          this.originalUrl = response.body.originalUrl; // Accessing the body
+          this.shortUrl = response.shortUrl;
+          this.originalUrl = response.originalUrl;
         } else {
           this.setErrorState("Não foi possível gerar a URL curta. Por favor, tente novamente.");
         }
       },
       error: (err) => {
-        console.error('Error:', err);
-        this.setErrorState("Ocorreu um erro ao encurtar a URL. Por favor, tente novamente mais tarde.");
+        console.error('Erro:', err);
+        this.setErrorState(err.message || "Ocorreu um erro ao encurtar a URL. Por favor, tente novamente mais tarde.");
       }
     });
   }
@@ -56,8 +53,8 @@ export class DashboardComponent implements OnInit {
 
   copyToClipboard() {
     if (this.shortUrl) {
-      this.clipboard.copy(this.getFullShortUrl()); // Use the copy method
-      alert('URL copiada para a área de transferência!'); // Optional: Notify user
+      this.clipboard.copy(this.getFullShortUrl());
+      alert('URL copiada para a área de transferência!');
     } else {
       alert('Por favor, gere uma URL curta primeiro.');
     }

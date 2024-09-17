@@ -44,9 +44,11 @@
           </div>
           <div *ngIf="isUrlGenerated" class="text-center">
             <h4 class="mb-3">URL Encurtada:</h4>
-            <a [href]="getFullShortUrl()" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-lg">
-              Abrir URL Encurtada
-            </a>
+            <p class="mb-2">
+              <a [href]="getFullShortUrl()" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-lg">
+                {{ getFullShortUrl() }}
+              </a>
+            </p>
             <p class="mt-2">URL Original: <a [href]="originalUrl" target="_blank" rel="noopener noreferrer">{{ originalUrl }}</a></p>
             <button class="btn btn-secondary mt-2" (click)="copyToClipboard()">
               <i class="fas fa-copy me-2"></i>Copiar URL Encurtada
