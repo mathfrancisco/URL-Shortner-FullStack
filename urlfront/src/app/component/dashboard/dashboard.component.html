@@ -45,7 +45,7 @@
           <div *ngIf="isUrlGenerated" class="text-center">
             <h4 class="mb-3">URL Encurtada:</h4>
             <p class="mb-2">
-              <a [href]="getFullShortUrl()" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-lg">
+              <a [href]="'/api/' + shortUrl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-lg">
                 {{ getFullShortUrl() }}
               </a>
 

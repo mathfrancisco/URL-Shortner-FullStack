@@ -45,7 +45,7 @@ export class DashboardComponent {
   }
 
   getFullShortUrl(): string {
-    return `${this.urlShorterService.serviceUrl}${this.shortUrl}`;
+    return `${window.location.origin}/api/${this.shortUrl}`;
   }
 
   copyToClipboard() {

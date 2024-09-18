@@ -20,10 +20,9 @@ export class UrlShorterService {
       observe: 'response'
     }).pipe(
       map(response => {
-        console.log('Resposta completa do servidor:', response);
         if (response.body && response.body.shortUrl && response.body.originalUrl) {
           return {
-            shortUrl: response.body.shortUrl,
+            shortUrl: response.body.shortUrl.split('/').pop() || '',
             originalUrl: response.body.originalUrl
           };
         } else {

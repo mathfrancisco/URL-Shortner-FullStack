@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 @Configuration
 public class CorsConfig {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(CorsConfig.class);
 
     @Bean
@@ -18,8 +18,8 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(@NotNull CorsRegistry registry) {
-                logger.info("Configuring CORS mappings");
-                registry.addMapping("/api/**")
+                logger.info("Iniciando configuração de CORS");
+                registry.addMapping("/**") // Isso permitirá CORS para todas as rotas
                         .allowedOrigins(
                                 "http://localhost:8081",
                                 "http://localhost:4200",
@@ -27,13 +27,16 @@ public class CorsConfig {
                                 "http://54.232.58.42",
                                 "http://54.232.58.42:8080",
                                 "http://54.232.58.42:80",
+                                "http://54.232.58.42:3000",
+                                "https://54.232.58.42",
                                 "http://54.232.58.42/api"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD")
                         .allowedHeaders("*")
-                        .exposedHeaders("Content-Length", "Content-Range")
-                        .allowCredentials(true);
-                logger.info("CORS mappings configured successfully");
+                        .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "Content-Length", "Content-Range")
+                        .allowCredentials(true)
+                        .maxAge(3600); // 1 hora de cache para respostas pre-flight
+                logger.info("Configuração de CORS concluída com sucesso");
             }
         };
     }
