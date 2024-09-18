@@ -30,6 +30,7 @@ public class Url {
     @Column(nullable = false)
     private LocalDateTime expirationDate;
 
+
     // Getters e setters aqui
 }
 

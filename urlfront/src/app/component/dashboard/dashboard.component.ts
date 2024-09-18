@@ -35,7 +35,7 @@ export class DashboardComponent {
         this.isUrlGenerated = true;
         this.shortUrl = response.shortUrl;
         this.originalUrl = response.originalUrl;
-        this.isNewUrl = response.isNew;
+
       },
       error: (err) => {
         console.error('Erro:', err);
@@ -45,7 +45,7 @@ export class DashboardComponent {
   }
 
   getFullShortUrl(): string {
-    return `http://54.232.58.42/api/${this.shortUrl}`; // Adjust this URL to match your backend redirect endpoint
+    return `${this.urlShorterService.serviceUrl}${this.shortUrl}`;
   }
 
   copyToClipboard() {

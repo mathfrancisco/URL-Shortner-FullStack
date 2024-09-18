@@ -11,9 +11,7 @@ export class UrlShorterService {
 
   constructor(private http: HttpClient) {}
 
-  getUrlShorterUrl(url: string): Observable<{
-    isNew: boolean;
-    shortUrl: string, originalUrl: string}> {
+  getUrlShorterUrl(url: string): Observable<{shortUrl: string, originalUrl: string}> {
     const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
 
     return this.http.post<any>(this.serviceUrl, url, {
@@ -24,7 +22,10 @@ export class UrlShorterService {
       map(response => {
         console.log('Resposta completa do servidor:', response);
         if (response.body && response.body.shortUrl && response.body.originalUrl) {
-          return response.body;
+          return {
+            shortUrl: response.body.shortUrl,
+            originalUrl: response.body.originalUrl
+          };
         } else {
           throw new Error('Resposta inválida do servidor');
         }

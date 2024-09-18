@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8080", "http://localhost:4200", "http://54.232.58.42", "http://54.232.58.42:8080","http://54.232.58.42:80"})
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8080", "http://localhost:4200", "http://54.232.58.42", "http://54.232.58.42:8080","http://54.232.58.42:80","http://54.232.58.42/api"})
 @RequestMapping("/api")
 public class UrlController {
 
@@ -41,6 +41,8 @@ public class UrlController {
             Map<String, String> response = new HashMap<>();
             response.put("originalUrl", url);
             response.put("shortUrl", generatedUrl.getShortUrl());
+            // Remova ou comente a linha abaixo se não estiver usando isNew
+            // response.put("isNew", String.valueOf(generatedUrl.isNew()));
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             logger.error("Error generating short URL", e);
