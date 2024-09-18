@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +25,12 @@ public class UrlController {
     private static final Logger logger = LoggerFactory.getLogger(UrlController.class);
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getOriginalUrl(@PathVariable String id) {
+    public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String id) {
         try {
-            Url originalUrl = urlService.getOriginalUrl(id);
-            return ResponseEntity.ok(originalUrl.getOriginalUrl());
+            Url urlMapping = urlService.getOriginalUrl(id);
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .location(URI.create(urlMapping.getOriginalUrl()))
+                    .build();
         } catch (ResponseStatusException e) {
             logger.error("Error retrieving original URL", e);
             throw e;
