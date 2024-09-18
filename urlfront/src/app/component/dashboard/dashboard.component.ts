@@ -45,7 +45,7 @@ export class DashboardComponent {
   }
 
   getFullShortUrl(): string {
-    return `http://54.232.58.42/${this.shortUrl}`; // Ajuste esta URL conforme necessário
+    return `http://54.232.58.42/api/${this.shortUrl}`; // Adjust this URL to match your backend redirect endpoint
   }
 
   copyToClipboard() {
