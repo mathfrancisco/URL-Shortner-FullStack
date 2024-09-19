@@ -44,9 +44,16 @@ public class UrlService {
         return urlRepository.save(urlObject);
     }
 
+    public Url findByOriginalUrl(String originalUrl) {
+        return urlRepository.findByOriginalUrl(originalUrl);
+    }
+
+
     private boolean isUrlExpired(@NotNull Url url) {
         return LocalDateTime.now().isAfter(url.getExpirationDate());
     }
+
+
 }
 
 

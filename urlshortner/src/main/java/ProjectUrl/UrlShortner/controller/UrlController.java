@@ -39,16 +39,25 @@ public class UrlController {
     @PostMapping(value = "/", consumes = "text/plain")
     public ResponseEntity<Map<String, String>> generateShortUrl(@RequestBody String url) {
         try {
+            // Verificar se a URL já existe
+            Url existingUrl = urlService.findByOriginalUrl(url);
+            if (existingUrl != null) {
+                Map<String, String> response = new HashMap<>();
+                response.put("originalUrl", url);
+                response.put("shortUrl", existingUrl.getShortUrl());
+                return ResponseEntity.ok(response);
+            }
+
+            // Se não existir, gerar nova URL curta
             Url generatedUrl = urlService.generateShortUrl(url);
             Map<String, String> response = new HashMap<>();
             response.put("originalUrl", url);
             response.put("shortUrl", generatedUrl.getShortUrl());
-            // Remova ou comente a linha abaixo se não estiver usando isNew
-            // response.put("isNew", String.valueOf(generatedUrl.isNew()));
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             logger.error("Error generating short URL", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "Error generating short URL"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", "Error generating short URL"));
         }
     }
 
