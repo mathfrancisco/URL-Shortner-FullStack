@@ -9,8 +9,9 @@ API de Encurtamento de URL baseada em Java criada para gerenciamento de URLs efi
 - **MySQL**: Utilizado um banco de dados MySQL para armazenar URLs encurtadas e seus links originais correspondentes;
 - **Nginx**: Implementado Nginx como servidor proxy reverso para lidar com solicitações de entrada e melhorar o desempenho da aplicação;
 - **AWS EC2**: Implantou a aplicação na AWS EC2, fornecendo uma infraestrutura escalável e segura.
-Como funciona
 
+
+##  🤖 Como funciona:
 - **Os usuários inserem a URL original no formulário.**
 - **O backend gera uma URL encurtada e a exibe abaixo do formulário com opção de copiar.**
 - **A URL encurtada é armazenada no banco de dados MySQL.**
