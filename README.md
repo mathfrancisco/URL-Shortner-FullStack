@@ -16,4 +16,5 @@ API de Encurtamento de URL baseada em Java criada para gerenciamento de URLs efi
 - **O backend gera uma URL encurtada e a exibe abaixo do formulário com opção de copiar.**
 - **A URL encurtada é armazenada no banco de dados MySQL.**
 - **A aplicação roda em containers Docker, hospedada na AWS EC2, garantindo alta disponibilidade e escalabilidade.**
+  
 Este projeto de Encurtador de URL fornece uma experiência de encurtamento de URL sem problemas, aproveitando as fortes características do Java, Spring Boot, Angular e Docker, enquanto garante escalabilidade e segurança com AWS EC2 e Nginx.
