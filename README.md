@@ -10,11 +10,16 @@ API de Encurtamento de URL baseada em Java criada para gerenciamento de URLs efi
 - **Nginx**: Implementado Nginx como servidor proxy reverso para lidar com solicitações de entrada e melhorar o desempenho da aplicação;
 - **AWS EC2**: Implantou a aplicação na AWS EC2, fornecendo uma infraestrutura escalável e segura.
 
+## 📚 Descrição do Projeto
+O Encurtador de URL é uma API RESTful que permite encurtar URLs longas e gerar URLs curtas e fáceis de compartilhar. A API utiliza um banco de dados MySQL para armazenar as URLs encurtadas e o Spring Boot para fornecer uma estrutura de aplicação robusta e escalável.
 
-##  🤖 Como funciona:
-- **Os usuários inserem a URL original no formulário.**
-- **O backend gera uma URL encurtada e a exibe abaixo do formulário com opção de copiar.**
-- **A URL encurtada é armazenada no banco de dados MySQL.**
-- **A aplicação roda em containers Docker, hospedada na AWS EC2, garantindo alta disponibilidade e escalabilidade.**
-  
-Este projeto de Encurtador de URL fornece uma experiência de encurtamento de URL sem problemas, aproveitando as fortes características do Java, Spring Boot, Angular e Docker, enquanto garante escalabilidade e segurança com AWS EC2 e Nginx.
+## 🚀 Funcionalidades
+- **Encurtar URL**: A API permite encurtar URLs longas e gerar URLs curtas e fáceis de compartilhar;
+- **Listar URLs**: A API permite listar todas as URLs encurtadas armazenadas no banco de dados;
+- **Redirecionar URL**: A API permite redirecionar o usuário para a URL original a partir da URL encurtada;
+- **Copiar URL**: A API fornece uma opção de copiar a URL encurtada gerada.
+
+## 📊 Próximos Passos
+- **Implementar autenticação e autorização**: Implementar autenticação e autorização para garantir que apenas usuários autorizados possam encurtar URLs;
+- **Melhorar a segurança**: Melhorar a segurança da API implementando medidas de segurança adicionais, como criptografia e validação de entrada;
+- **Escalar a aplicação**: Escalar a aplicação para atender a um grande volume de requisições e garantir uma entrega eficiente e escalável, utilizando a infraestrutura da AWS EC2 e o serviço de containers do Docker.
