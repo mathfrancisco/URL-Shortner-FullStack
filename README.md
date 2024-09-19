@@ -23,3 +23,6 @@ O Encurtador de URL é uma API RESTful que permite encurtar URLs longas e gerar 
 - **Implementar autenticação e autorização**: Implementar autenticação e autorização para garantir que apenas usuários autorizados possam encurtar URLs;
 - **Melhorar a segurança**: Melhorar a segurança da API implementando medidas de segurança adicionais, como criptografia e validação de entrada;
 - **Escalar a aplicação**: Escalar a aplicação para atender a um grande volume de requisições e garantir uma entrega eficiente e escalável, utilizando a infraestrutura da AWS EC2 e o serviço de containers do Docker.
+
+## 🚨 Veja como funciona:
+![Projetourl gif](https://github.com/user-attachments/assets/0bb2141b-856e-4cd5-9cbd-b93f60291c4c)
