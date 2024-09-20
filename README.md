@@ -1,5 +1,5 @@
 # 🚀 Encurtador de URL
-API de Encurtamento de URL baseada em Java criada para gerenciamento de URLs eficiente.
+API de Encurtamento de URL baseada em Java criada para gerenciamento de URLs eficiente. 
 
 ## 👨‍💻 Principais Tecnologias
 - **Java 17**: Utilizado a versão LTS mais recente do Java para aproveitar suas características robustas e inovações;
@@ -26,3 +26,5 @@ O Encurtador de URL é uma API RESTful que permite encurtar URLs longas e gerar 
 
 ## 🚨 Veja como funciona:
 ![Projetourl gif](https://github.com/user-attachments/assets/0bb2141b-856e-4cd5-9cbd-b93f60291c4c)
+
+## 🚨 Veja o projeto: http://54.232.58.42/
